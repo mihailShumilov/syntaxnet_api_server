@@ -286,7 +286,7 @@ class SyncHandler(SocketServer.StreamRequestHandler):
   def handle(self):
     logger.debug('Incoming request.')
     data = self.rfile.readline().strip()
-    logger.debug('DATA: ', data)
+    logger.debug('DATA: '.format(data))
 
     logger.debug('Morphological analysis...')
     morph_result = self.server.morpher_.parse(data)
