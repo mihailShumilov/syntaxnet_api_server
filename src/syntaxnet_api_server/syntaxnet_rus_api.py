@@ -287,7 +287,7 @@ class ProcessorSyntaxNet(object):
 class SyncHandler(SocketServer.StreamRequestHandler):
   def handle(self):
     logger.debug('Incoming request.')
-    data = self.rfile.readline().strip()
+    data = self.rfile.readline().strip() + "\n\n";
     logger.debug('DATA: ')
     logger.debug(data)
     logger.debug("Thread Name:{}".format(threading.current_thread().name))
