@@ -348,3 +348,7 @@ def main():
   sync_server.tagger_ = ProcessorSyntaxNet(CFG_MORPH_TAGGER)
   sync_server.parser_ = ProcessorSyntaxNet(CFG_SYNTAX_PARSER)
   sync_server.serve_forever()
+
+
+if __name__ == '__main__':
+  main()
