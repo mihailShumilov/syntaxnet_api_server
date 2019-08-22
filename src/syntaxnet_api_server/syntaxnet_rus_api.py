@@ -282,10 +282,11 @@ class ProcessorSyntaxNet(object):
     return result
 
 
-class SyncHandler(SocketServer.BaseRequestHandler):
+class SyncHandler(SocketServer.StreamRequestHandler):
   def handle(self):
     logger.debug('Incoming request.')
-    data = self._read_incoming_request()
+    data = self.rfile.readline().strip()
+    logger.debug('DATA: ', data)
 
     logger.debug('Morphological analysis...')
     morph_result = self.server.morpher_.parse(data)
@@ -341,7 +342,7 @@ def main():
 
   args = parser.parse_args()
 
-  sync_server = SocketServer.ForkingTCPServer((args.host, int(args.port)), SyncHandler)
+  sync_server = SocketServer.ThreadingTCPServer((args.host, int(args.port)), SyncHandler)
   stdout_strm = configure_stdout()
   sync_server.morpher_ = ProcessorSyntaxNet(CFG_MORPH_PARSER)
   sync_server.tagger_ = ProcessorSyntaxNet(CFG_MORPH_TAGGER)
