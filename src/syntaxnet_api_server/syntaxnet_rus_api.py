@@ -346,7 +346,7 @@ def main():
 
   args = parser.parse_args()
 
-  sync_server = SocketServer.ThreadingTCPServer((args.host, int(args.port)), SyncHandler)
+  sync_server = SocketServer.ForkingTCPServer((args.host, int(args.port)), SyncHandler)
   stdout_strm = configure_stdout()
   sync_server.morpher_ = ProcessorSyntaxNet(CFG_MORPH_PARSER)
   sync_server.tagger_ = ProcessorSyntaxNet(CFG_MORPH_TAGGER)
